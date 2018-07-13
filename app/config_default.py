@@ -3,7 +3,7 @@
 class Config(object):
     DEBUG = False
     SECRET_KEY = 'this is secret string'
-
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://froot:password@localhost/beibq?charset=utf8'
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
