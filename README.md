@@ -78,5 +78,5 @@ python manage.py runserver -h 0.0.0.0
 ## 建议反馈
 如果您有任何建议和问题，可以通过邮箱方式和我联系
 
-- 邮箱： chaijun@markbj.com
+- 邮箱： zwy7049@163.com
 
