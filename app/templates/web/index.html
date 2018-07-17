@@ -57,7 +57,7 @@
                 </div>
                 {%if not current_user.is_authenticated%}
                 <div class="section">
-                    <a class="login" href="{{url_for("admin.login")}}">登录</a>
+                    <a class="login" href="{{url_for("auth.login")}}">登录</a>
                 </div>
                 {%endif%}
             </div>

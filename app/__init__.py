@@ -3,9 +3,11 @@ from flask import Flask, redirect, url_for, request
 from datetime import datetime
 from flask_bootstrap import Bootstrap
 from app.config_default import Config as DefaultConfig
+from flask_mail import Mail
 
 
 bootstrap = Bootstrap()
+mail = Mail()
 
 def check_start(app, db):
     from app.includes.start import _exist_config, exist_table, create_path, set_site
@@ -59,7 +61,8 @@ def create_app():
     bootstrap.init_app(app)
     db.init_app(app)
     db.PREFIX = app.config["DB_PREFIX"]
-
+    mail.init_app(app)
+	
     app.site = {}
     def site_context_processor():
         return dict(site=app.site)
@@ -76,10 +79,14 @@ def create_app():
 
     from app.api import api
     app.register_blueprint(api, url_prefix="/api")
-
+	
+    from app.auth import auth
+    app.register_blueprint(auth, url_prefix="/auth")
+	
+	
     template_filters(app)
 
-    login_manager.login_view = "admin.login"
+    login_manager.login_view = "web.login"
     login_manager.login_message = "请先登录!!!"
 
     from app.log  import init_logging
