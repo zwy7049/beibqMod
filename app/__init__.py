@@ -4,7 +4,7 @@ from datetime import datetime
 from flask_bootstrap import Bootstrap
 from app.config_default import Config as DefaultConfig
 from flask_mail import Mail
-
+from flask_moment import Moment
 
 bootstrap = Bootstrap()
 mail = Mail()
@@ -62,6 +62,7 @@ def create_app():
     db.init_app(app)
     db.PREFIX = app.config["DB_PREFIX"]
     mail.init_app(app)
+    moment=Moment(app)	
 	
     app.site = {}
     def site_context_processor():

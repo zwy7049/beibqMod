@@ -5,10 +5,13 @@ from flask_login import login_required, current_user
 from app.admin import admin
 from app.admin.forms.book import *
 from app.models.book import *
+from app.decorators import admin_required,permission_required
+from app.models.role import Permission
 
 
 @admin.route("/")
 @login_required
+@admin_required
 def index():
     page = request.args.get("page", 1, type=int)
     per_page = current_app.config["PER_PAGE"]
@@ -24,6 +27,7 @@ def index():
 
 @admin.route("/book/new", methods=["GET", "POST"])
 @login_required
+@admin_required
 def book_new():
     form = BookForm()
     if form.validate_on_submit():
@@ -35,6 +39,7 @@ def book_new():
 
 @admin.route("/book/<int:id>", methods=["GET", "POST"])
 @login_required
+@admin_required
 def book_detail(id):
     book = Book.get(id)
     if not book:
@@ -48,6 +53,7 @@ def book_detail(id):
 
 @admin.route("/book/<int:id>/edit")
 @login_required
+@admin_required
 def book_edit(id):
     book = Book.get(id)
     if not book:
@@ -57,6 +63,7 @@ def book_edit(id):
 
 @admin.route("/catalog/<int:id>/change")
 @login_required
+@admin_required
 def catalog_change(id):
     catalog = BookCatalog.get(id)
     if catalog.is_dir or catalog.book.user_id != current_user.id:

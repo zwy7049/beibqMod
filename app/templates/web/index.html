@@ -67,7 +67,8 @@
     {%include "_footer.html"%}
 </div>
 
-{%if current_user.is_authenticated%}
+{%if current_user.is_authenticated and current_user.username=='admin'%}
+
 <a class="admin-enter" href="{{url_for("admin.index")}}">
     <span class="fa fa-dashboard"></span>
 </a>

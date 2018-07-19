@@ -5,7 +5,8 @@ from flask_login import login_user, logout_user, login_required, current_user
 from app.admin import admin
 from app.admin.forms.start import *
 from app.includes.start import *
-
+from app.decorators import admin_required,permission_required
+from app.models.role import Permission
 
 def setup_step2():
     form = ConfigForm()
@@ -83,6 +84,7 @@ def install():
 
 
 @admin.route("/login", methods=["GET", "POST"])
+@admin_required
 def login():
     if current_user.is_authenticated:
         return redirect(url_for("admin.index"))
